@@ -1,0 +1,47 @@
+type Mutation {
+  user(name: String): User!
+  room(name: String): Room!
+  connection(roomId: ID, userId: ID!): Connection!
+  removeConnection(connectionId: ID!): Connection!
+  message(message: String, sended_by: ID!, sended_in: ID!): Message!
+}
+
+type Query {
+  users: [User!]!
+  user(userId: ID!): User!
+  rooms: [Room!]!
+  room(roomId: ID!): Room!
+}
+
+type Subscription {
+  newMessage(roomId: ID!): Message!
+  newConnection(roomId: ID!): Connection!
+}
+
+type User {
+  id: ID!
+  name: String!
+  messages: [Message!]!
+  connectedAt: Room
+}
+
+type Connection {
+  id: ID!
+  user: User
+  room: Room
+}
+
+type Message {
+  id: ID!
+  created_at: String!
+  message: String!
+  sended_by: User!
+  sended_in: Room!
+}
+
+type Room {
+  id: ID!
+  name: String!
+  connections: [Connection!]!
+  messages: [Message!]!
+}
