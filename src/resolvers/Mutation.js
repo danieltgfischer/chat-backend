@@ -9,24 +9,25 @@ function room(parent, args, context) {
 }
 
 async function connection(parent, args, context) {
+  const connectionExists = await context.prisma.$exists.connection({
+    user: { id: args.userId },
+    room: { id: args.roomId }
+  });
 
-   const connectionExists = await context.prisma.$exists.connection({
-     user: { id: args.userId },
-     room: { id: args.roomId },
-   });
+  if (connectionExists) {
+    throw new Error(`User already connected in room: ${args.roomId}`);
+  }
 
-   if (connectionExists) {
-     throw new Error(`User already connected in room: ${args.roomId}`)
-   }
- 
   return context.prisma.createConnection({
     user: { connect: { id: args.userId } },
-    room: { connect: { id: args.roomId } },
-  })
+    room: { connect: { id: args.roomId } }
+  });
 }
 
 async function removeConnection(parent, args, context) {
-   return await context.prisma.deleteConnection({id: args.connectionId})
+  return await context.prisma.deleteConnection({
+    connection: { connect: { id: args.connectionId } }
+  });
 }
 
 function message(parent, args, context) {
