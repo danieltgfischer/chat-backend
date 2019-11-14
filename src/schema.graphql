@@ -1,7 +1,7 @@
 type Mutation {
   user(name: String): User!
   room(name: String): Room!
-  connection(roomId: ID, userId: ID!): Connection!
+  connection(roomId: ID!, userId: ID!): Connection!
   removeConnection(connectionId: ID!): Connection!
   message(message: String, sended_by: ID!, sended_in: ID!): Message!
 }

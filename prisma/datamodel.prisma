@@ -1,27 +1,27 @@
 type User {
-  id: ID! @id
+  id: ID! @id @unique 
   name: String!
   messages: [Message!]!
   connectedAt: Room
 }
 
 type Connection {
-	id: ID! @id
+	id: ID! @id @unique
   createdAt: DateTime! @createdAt
 	user: User!
 	room: Room!
 }
 
 type Message {
+  id: ID! @id @unique
   created_at: DateTime! @createdAt
-  id: ID! @id
   message: String!
   sended_by: User!
   sended_in: Room!
 }
 
 type Room {
-	id: ID! @id
+	id: ID! @id @unique
   createdAt: DateTime! @createdAt
 	name: String!
 	connections: [Connection!]!

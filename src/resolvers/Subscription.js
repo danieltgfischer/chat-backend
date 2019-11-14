@@ -14,7 +14,7 @@ function message(parent, args, context, info) {
 function connection(parent, args, context, info) {
   return context.prisma.$subscribe
     .connection({
-      mutation_in: ["CREATED", "DELETE"],
+      mutation_in: ["CREATED"],
       node: {
         room: { id: args.roomId }
       }
