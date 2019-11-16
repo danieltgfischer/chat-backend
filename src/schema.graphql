@@ -16,6 +16,7 @@ type Query {
 type Subscription {
   newMessage(roomId: ID!): Message!
   newConnection(roomId: ID!): Connection!
+  removeConnectionSubs(roomId: ID!): User!
 }
 
 type User {
