@@ -22,6 +22,25 @@ function connection(parent, args, context, info) {
     .node();
 }
 
+function connectionDeleted(parent, args, context, info) {
+  const selectionSet = `{ previousValues { id } }`;
+  return context.prisma.$subscribe.connection({
+      mutation_in: ["DELETED"],
+      node: {
+        room: { id: args.roomId }
+      }
+    },
+    selectionSet
+  )
+}
+
+const removeConnectionSubs = {
+  subscribe: connectionDeleted,
+  resolve: payload => {
+    return payload ? payload.previousValues : payload;
+  }
+};
+
 const newMessage = {
   subscribe: message,
   resolve: payload => {
@@ -38,5 +57,6 @@ const newConnection = {
 
 module.exports = {
   newMessage,
-  newConnection
+  newConnection,
+  removeConnectionSubs
 };

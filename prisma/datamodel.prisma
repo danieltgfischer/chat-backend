@@ -8,8 +8,8 @@ type User {
 type Connection {
 	id: ID! @id @unique
   createdAt: DateTime! @createdAt
-	user: User!
-	room: Room!
+	user: User
+	room: Room
 }
 
 type Message {
