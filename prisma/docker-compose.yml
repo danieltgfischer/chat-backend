@@ -1,16 +1,28 @@
-version: '3'
+version: "3"
 services:
+  server:
+    build: ../
+    ports:
+      - "4000:4000"
+    environment:
+      PRISMA_ENDPOINT: http://prisma:4466
+      WAIT_HOSTS: prisma:4466
+    links:
+      - prisma
+    depends_on:
+      - prisma
   prisma:
     image: prismagraphql/prisma:1.34
     restart: always
     ports:
-      - '4466:4466'
+      - "4466:4466"
     environment:
       PRISMA_CONFIG: |
         port: 4466
         databases:
           default:
             connector: mysql
+            rawAccess: true
             host: mysql
             port: 3306
             user: root
