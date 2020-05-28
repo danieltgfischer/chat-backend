@@ -1,5 +1,3 @@
-**Atenção**: Atualmente esse aplicativo está em construção e poderá ocorrer alterações.
-
 # Chat GraphQL
 Esse projeto é um aplicativo que cria salas de chat. É possível criar salas, <br/>
 bem como usuários e interagir entre usuários nas salas de bate papo.
